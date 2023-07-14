@@ -11,6 +11,7 @@ const SignUp = (props) => {
   let navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
+    document.querySelector(".button").textContent = "Loading..."
     //API call
     const api = process.env.REACT_APP_BACKEND_API
     const response = await fetch(`${api}/api/auth/createuser`, {
