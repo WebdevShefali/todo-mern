@@ -11,7 +11,7 @@ const SignUp = (props) => {
   let navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    document.querySelector(".button").textContent = "Loading..."
+    document.querySelector(".button").innerHTML = 'Loading...'
     //API call
     const api = process.env.REACT_APP_BACKEND_API
     const response = await fetch(`${api}/api/auth/createuser`, {
@@ -27,7 +27,6 @@ const SignUp = (props) => {
       }),
     });
     const json = await response.json();
-    console.log(json);
     if (json.success) {
       //Save the authtoken and redirect to notes
       localStorage.setItem("auth-token", json.authtoken);
@@ -41,12 +40,17 @@ const SignUp = (props) => {
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
-  const showHide = () => {
+  const showHide = (e) => {
     const password = document.querySelector("#password");
-    if (password.type === "password") {
+    const eyeIcon = document.querySelector('#eyeIcon');
+    if (password.type === "password"&& (e.type !== 'keydown' || e.code === 'Enter')) {
       password.setAttribute("type", "text");
+      eyeIcon.classList.remove("fa-eye");
+                eyeIcon.classList.add("fa-eye-slash");
     } else {
       password.setAttribute("type", "password");
+      eyeIcon.classList.remove("fa-eye-slash");
+                eyeIcon.classList.add("fa-eye");
     }
   };
 
@@ -66,9 +70,11 @@ const SignUp = (props) => {
             className="form-control"
             id="name"
             name="name"
+            autoComplete="off"
             onChange={onChange}
             required
-            style={{ width: "320px" }}
+            style={{ width: "320px",
+            backgroundColor:"#D3ECA7" }}
           />
         </div>
         <div className="mb-3">
@@ -80,10 +86,12 @@ const SignUp = (props) => {
             className="form-control"
             id="email"
             name="email"
+            autoComplete="off"
             onChange={onChange}
             required
             minLength={8}
-            style={{ width: "320px" }}
+            style={{ width: "320px",
+            backgroundColor:"#D3ECA7" }}
           />
           <div id="emailHelp" className="form-text">
             We'll never share your email with anyone else.
@@ -99,13 +107,16 @@ const SignUp = (props) => {
             className="form-control"
             id="password"
             name="password"
+            autoComplete="off"
             onChange={onChange}
             required
             minLength={8}
-            style={{ width: "320px" }}
+            style={{ width: "320px",
+            backgroundColor:"#D3ECA7" }}
           />
-          <input type="checkbox" onClick={showHide} className="my-4" /> Show
-          Password
+         <button type="button" id="btnToggle" className="toggleEyeIcon " onClick={showHide} >
+            <i id="eyeIcon" className="fa fa-eye"></i>
+          </button>
         </div>
 
         <button
@@ -117,6 +128,7 @@ const SignUp = (props) => {
             borderRadius: "10px",
             outline: "none",
             border: "none",
+            backgroundColor:"#D3ECA7"
           }}
         >
           Sign up
