@@ -50,7 +50,7 @@ const Todos = (props) => {
         <div className="modal-dialog">
           <div
             className="modal-content"
-            style={{ backgroundColor: "#D3ECA7", color: "#000000" }}
+            style={{ backgroundColor: "#212529", color: "#fff"}}
           >
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">
@@ -61,6 +61,8 @@ const Todos = (props) => {
                 className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
+                style={{ 
+                backgroundColor:"#D3ECA7" }}
               ></button>
             </div>
             <div className="modal-body">
@@ -117,6 +119,8 @@ const Todos = (props) => {
                 disabled={todo.task.length < 3 || todo.tag.length < 3}
                 className="btn"
                 onClick={handleClick}
+                style={{ 
+                backgroundColor:"#D3ECA7"}}
               >
                 Update
               </button>
