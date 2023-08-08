@@ -17,6 +17,7 @@ const Home = (props) => {
 
   return (
     <div className="container">
+  
       <h3 className="my-3">Add a new task</h3>
       <div>
         <h6 className="my-3">Task</h6>
