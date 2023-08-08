@@ -6,10 +6,16 @@ const Home = (props) => {
   const context = useContext(todoContext);
   const { addTask } = context;
   const [todo, setTodo] = useState({ task: "", tag: "" });
-  const handleClick = () => {
-    addTask(todo.task, todo.tag);
-    setTodo({ task: "", tag: "" });
-    props.showAlert("Added successfully", "success");
+    const handleClick = () => {
+    const task = document.querySelector('#task');
+    const tag = document.querySelector('#tag');
+    if(task.value==="" || tag.value===""){
+      props.showAlert("Please add a task and tag", "danger");
+    }else{
+      addTask(todo.task, todo.tag);
+      setTodo({ task: "", tag: "" });
+      props.showAlert("Added successfully", "success");
+    }
   };
   const handleChange = (e) => {
     setTodo({ ...todo, [e.target.name]: e.target.value });
