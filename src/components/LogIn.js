@@ -6,7 +6,7 @@ const Login = (props) => {
   let navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    document.querySelector(".button").textContent = "Loading..."
+    document.querySelector(".button").innerHTML = 'Loading...'
     //API call
     const api = process.env.REACT_APP_BACKEND_API
     const response = await fetch(`${api}/api/auth/login`, {
@@ -21,7 +21,6 @@ const Login = (props) => {
       }),
     });
     const json = await response.json();
-    console.log(json);
     if (json.success) {
       //Save the authtoken and redirect to todos
       localStorage.setItem("auth-token", json.authtoken);
@@ -35,14 +34,20 @@ const Login = (props) => {
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
-  const showHide = () => {
+  const showHide = (e) => {
     const password = document.querySelector("#password");
-    if (password.type === "password") {
+    const eyeIcon = document.querySelector('#eyeIcon');
+    if (password.type === "password"&& (e.type !== 'keydown' || e.code === 'Enter')) {
       password.setAttribute("type", "text");
+      eyeIcon.classList.remove("fa-eye");
+                eyeIcon.classList.add("fa-eye-slash");
     } else {
       password.setAttribute("type", "password");
+      eyeIcon.classList.remove("fa-eye-slash");
+                eyeIcon.classList.add("fa-eye");
     }
   };
+  
   return (
     <div
       className="container"
@@ -59,9 +64,11 @@ const Login = (props) => {
             className="form-control"
             id="email"
             name="email"
+            autoComplete="off"
             value={credentials.email}
             onChange={onChange}
-            style={{ width: "320px" }}
+            style={{ width: "320px",
+            backgroundColor:"#D3ECA7" }}
           />
           <div id="emailHelp" className="form-text">
             We'll never share your email with anyone else.
@@ -76,12 +83,15 @@ const Login = (props) => {
             className="form-control"
             id="password"
             name="password"
+            autoComplete="off"
             value={credentials.password}
             onChange={onChange}
-            style={{ width: "320px" }}
+            style={{ width: "320px",
+            backgroundColor:"#D3ECA7" }}
           />
-          <input type="checkbox" onClick={showHide} className="my-4" /> Show
-          Password
+          <button type="button" id="btnToggle" className="toggleEyeIcon " onClick={showHide} >
+            <i id="eyeIcon" className="fa fa-eye"></i>
+          </button>
         </div>
 
         <button
@@ -93,6 +103,7 @@ const Login = (props) => {
             borderRadius: "10px",
             outline: "none",
             border: "none",
+            backgroundColor:"#D3ECA7"
           }}
         >
           LogIn
