@@ -12,6 +12,23 @@ nav {
   background-color: #212529;
   color: #fff;
 }
-input:focus {
-  outline: none;
+input,input:focus,input:active{
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  background-color:#D3ECA7 !important;
+}
+.toggleEyeIcon{
+  border: none !important;
+  position: relative;
+  z-index: 2;
+  background:transparent;
+  left: 90%;
+  bottom: 30px;
+}
+@media only screen and (max-width:768px) {
+  html,body{
+    width: 100% !important;
+    overflow-x: hidden !important;
+  }
 }
